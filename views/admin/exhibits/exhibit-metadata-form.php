@@ -21,7 +21,7 @@ if ($exhibit->title) {
         var sectionListDeleteLinksSelector = '.section-delete a';
         var sectionListDeleteConfirmationText = <?php echo js_escape(__('Are you sure you want to delete this section?')); ?>;
         var sectionListFormSelector = '#exhibit-metadata-form';
-        var sectionListCallback = Omeka.ExhibitBuilder.addStyling;
+        var sectionListCallback = function(element) {jQuery(element).parents('li.exhibit-section-item').remove(); };
         makeSortable(sectionList, 
                      sectionListSortableOptions,
                      sectionListOrderInputSelector,
@@ -35,7 +35,7 @@ if ($exhibit->title) {
         var pageListDeleteLinksSelector = '.page-delete a';
         var pageListDeleteConfirmationText = <?php echo js_escape(__('Are you sure you want to delete this page?')); ?>;
         var pageListFormSelector = '#exhibit-metadata-form';
-        var pageListCallback = Omeka.ExhibitBuilder.addStyling;
+        var pageListCallback = function(element) {jQuery(element).parents('li.exhibit-page-item').remove(); }; 
         
         var pageLists = jQuery('.page-list');
         jQuery.each(pageLists, function(index, pageList) {

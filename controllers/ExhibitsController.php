@@ -498,8 +498,7 @@ class ExhibitBuilder_ExhibitsController extends Omeka_Controller_Action
         
         // If we are making an AJAX request to delete a section, return the XHTML for the list partial
         if ($this->getRequest()->isXmlHttpRequest()) {
-            $this->view->exhibit = $exhibit;
-            $this->render('section-list');
+            $this->_helper->json('success');
         } else {
             // For non-AJAX requests, redirect to the exhibits/edit page.
             $this->redirect->goto('edit', null, null, array('id'=>$exhibit->id) );
@@ -521,8 +520,7 @@ class ExhibitBuilder_ExhibitsController extends Omeka_Controller_Action
         $exhibitPage->delete();
         
         if ($this->getRequest()->isXmlHttpRequest()) {
-            $this->view->exhibitSection = $exhibitSection;
-            $this->render('page-list');
+            $this->_helper->json('success');
         } else {
             $this->redirect->goto('edit-section', null, null, array('id' => $exhibitSection->id) );
         }

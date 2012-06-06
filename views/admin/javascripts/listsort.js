@@ -1,21 +1,18 @@
 function makeSortable(list, sortableOptions, orderInputSelector, deleteLinksSelector, deleteConfirmationText, formSelector, callback) {	
 	
 	list.sortable(sortableOptions);
-	
+    list.find('input').hide();
 	list.bind('sortupdate', function(event, ui) { event.stopPropagation(); reorderList(jQuery(this), orderInputSelector); });
 	
 	enableListForm(list, orderInputSelector, false);
 	
 	//Auto-update the form when someone clicks a delete link
-	deleteLinks = jQuery(deleteLinksSelector);
+	deleteLinks = jQuery(list).find(deleteLinksSelector);
 	deleteLinks.bind('click', 
-	                 {list: list,
-	                  sortableOptions: sortableOptions,
-	                  orderInputSelector: orderInputSelector,
-	                  deleteLinksSelector: deleteLinksSelector,
-	                  deleteConfirmationText: deleteConfirmationText, 
-	                  formSelector: formSelector,
-	                  callback: callback}, 
+        {
+            callback: callback,
+            deleteConfirmationText: deleteConfirmationText
+        }, 
 	                  ajaxListDelete);
 	
 	//When we submit the form, then enable the elements in the list so that they submit properly
@@ -49,27 +46,19 @@ function reorderList(list, orderInputSelector) {
 }
 
 function ajaxListDelete(event) {
-    event.stopPropagation();
+    event.preventDefault();
 	if (confirm(event.data.deleteConfirmationText)) {
 	    	
 		var uri = jQuery(this).attr('href');
-		var list = event.data.list;
-		var sortableOptions = event.data.sortableOptions;
-		var orderInputSelector = event.data.orderInputSelector;
-		var deleteLinksSelector = event.data.deleteLinksSelector;
-		var deleteConfirmationText = event.data.deleteConfirmationText;
-		var formSelector = event.data.formSelector;
 		var callback = event.data.callback;
 		
 		jQuery.ajax({
            url: uri,
-           method: 'GET',
+           method: 'POST',
 
            success: function(data) {
-               list.html(data);
-               makeSortable(list, sortableOptions, orderInputSelector, deleteLinksSelector, deleteConfirmationText, formSelector, callback);
                if (callback) {
-                   callback();
+                   callback(event.target);
                }
            },
 

@@ -17,7 +17,7 @@ if ($exhibitSection->title) {
         var pageListDeleteLinksSelector = '.page-delete a';
         var pageListDeleteConfirmationText = <?php echo js_escape(__('Are you sure you want to delete this page?')); ?>;
         var pageListFormSelector = '#section-metadata-form';
-        var pageListCallback = Omeka.ExhibitBuilder.addStyling;
+        var pageListCallback = function (element) {jQuery(element).parents('li.exhibit-page-item').remove();};
         
         var pageList = jQuery('.page-list');
         makeSortable(jQuery(pageList), 
