@@ -10,11 +10,11 @@
 if (!defined('EXHIBIT_PLUGIN_DIR')) {
     define('EXHIBIT_PLUGIN_DIR', dirname(__FILE__));
     if (defined('WEB_PLUGIN')) {
-        define('WEB_EXHIBIT_PLUGIN_DIR', WEB_PLUGIN . '/' 
+        define('WEB_EXHIBIT_PLUGIN_DIR', WEB_PLUGIN . '/'
             . basename(dirname(__FILE__)));
     }
     define('EXHIBIT_LAYOUTS_DIR_NAME', 'exhibit_layouts');
-    define('EXHIBIT_LAYOUTS_DIR', EXHIBIT_PLUGIN_DIR 
+    define('EXHIBIT_LAYOUTS_DIR', EXHIBIT_PLUGIN_DIR
         . '/views/shared/exhibit_layouts');
 }
 
@@ -29,7 +29,9 @@ add_plugin_hook('admin_append_to_dashboard_primary', 'exhibit_builder_dashboard'
 add_plugin_hook('config_form', 'exhibit_builder_config_form');
 add_plugin_hook('config', 'exhibit_builder_config');
 add_plugin_hook('initialize', 'exhibit_builder_initialize');
-
+add_plugin_hook('item_browse_sql', 'exhibit_builder_item_browse_sql');
+add_plugin_hook('admin_append_to_advanced_search', 'exhibit_builder_append_to_advanced_search');
+add_plugin_hook('public_append_to_advanced_search', 'exhibit_builder_append_to_advanced_search');
 
 // This hook is defined in the HtmlPurifier plugin, meaning this will only work
 // if that plugin is enabled.
@@ -40,9 +42,8 @@ add_filter('admin_navigation_main', 'exhibit_builder_admin_nav');
 add_filter('theme_options', 'exhibit_builder_theme_options');
 add_filter('public_theme_name', 'exhibit_builder_public_theme_name');
 
-// Helper functions for exhibits, exhibit sections, and exhibit pages
+// Helper functions for exhibits and exhibit pages
 require_once EXHIBIT_PLUGIN_DIR . '/helpers/ExhibitFunctions.php';
-require_once EXHIBIT_PLUGIN_DIR . '/helpers/ExhibitSectionFunctions.php';
 require_once EXHIBIT_PLUGIN_DIR . '/helpers/ExhibitPageFunctions.php';
 
 require_once EXHIBIT_PLUGIN_DIR . '/functions.php';

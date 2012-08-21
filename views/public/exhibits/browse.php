@@ -1,10 +1,13 @@
-<?php head(array('title'=>html_escape('Browse Exhibits'),'bodyid'=>'exhibit','bodyclass'=>'browse')); ?>
+<?php
+$title = __('Browse Exhibits');
+head(array('title'=>$title, 'bodyid' => 'exhibit', 'bodyclass'=>'browse'));
+?>
 <div id="primary">
-    <h1>Browse Exhibits (<?php echo $total_records; ?> total)</h1>
+    <h1><?php echo $title; ?> <?php echo __('(%s total)', $total_records); ?></h1>
 	<?php if (count($exhibits) > 0): ?>
 	
 	<ul class="navigation" id="secondary-nav">
-	    <?php echo nav(array('Browse All' => uri('exhibits'), 'Browse by Tag' => uri('exhibits/tags'))); ?>
+	    <?php echo nav(array(__('Browse All') => uri('exhibits'), __('Browse by Tag') => uri('exhibits/tags'))); ?>
     </ul>	
 	
     <div class="pagination"><?php echo pagination_links(); ?></div>
@@ -24,7 +27,7 @@
     <div class="pagination"><?php echo pagination_links(); ?></div>
 
     <?php else: ?>
-	<p>There are no exhibits available yet.</p>
+	<p><?php echo __('There are no exhibits available yet.'); ?></p>
 	<?php endif; ?>
 </div>
 <?php foot(); ?>
